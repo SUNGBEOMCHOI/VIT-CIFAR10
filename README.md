@@ -1,8 +1,4 @@
 # VIT-CIFAR10
- 
-## Github 주소 :
-
-[https://github.com/YAIconvalley/VIT-SUNGBEOM](https://github.com/YAIconvalley/VIT-SUNGBEOM)
 
 ## Introduction
 
