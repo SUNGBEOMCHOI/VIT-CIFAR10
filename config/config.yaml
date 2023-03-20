@@ -1,0 +1,32 @@
+device: cuda
+train:
+  batch_size: 256
+  train_epochs: 100
+  loss:
+    - crossentropyloss
+  optim:
+    name: sgd
+    learning_rate: 0.001
+    others:
+      momentum: 0
+      dampening: 0
+  lr_scheduler:
+    name: multisteplr
+    others:
+      milestones: [30, 60, 90]
+      gamma: 0.1
+  model_path: ./pretrained
+  progress_path: ./train_progress
+  plot_epochs: 10
+model:
+  patch_size: 4
+  in_channels: 3
+  hidden_dim: 512
+  num_heads: 8
+  feedforward_dim: 2048
+  num_layers: 6
+  dropout_rate: 0.1
+  num_patches: 64
+  num_classes: 1000
+test:
+  batch_size: 256
