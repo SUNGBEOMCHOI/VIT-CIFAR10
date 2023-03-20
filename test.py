@@ -13,7 +13,7 @@ def test(args, cfg):
 
     # Load the model
     model = Model(model_cfg).to(device)
-    checkpoint = torch.load(args.pretrained)
+    checkpoint = torch.load(args.pretrained, map_location=device)
     model.load_state_dict(checkpoint['model_state_dict'])
     model.eval()
 

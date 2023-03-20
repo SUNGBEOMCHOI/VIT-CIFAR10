@@ -164,8 +164,9 @@ def plot_progress(history, epoch, file_path='./train_progress'):
     plt.xlabel('Epochs')
     plt.ylabel('Loss')
     plt.savefig(f'{file_path}/{epoch}epochs.png')
-
-def save_model(epoch, model, optimizer, lr_scheduler, file_path='./pretrained'):
+    plt.close()
+    
+def save_model(model, epoch, optimizer, lr_scheduler, history, model_path):
     """
     Save training ckeckpoint
 
@@ -181,4 +182,5 @@ def save_model(epoch, model, optimizer, lr_scheduler, file_path='./pretrained'):
         'model_state_dict' : model.state_dict(),
         'optimizer_state_dict' : optimizer.state_dict(),
         'lr_scheduler' : lr_scheduler.state_dict(),
-        }, f'{file_path}/model_{epoch}.pt')
+        'history' : history,
+        }, f'{model_path}/model_{epoch}.pt')

@@ -39,7 +39,7 @@ def get_test_dataset(transform=None):
 
     return test_dataset
 
-def get_dataloader(dataset, batch_size, num_workers=0, shuffle=True):
+def get_dataloader(dataset, batch_size, num_workers=8, shuffle=True):
     """
     Return torch dataloader for dataset
 

@@ -13,6 +13,7 @@ class Model(nn.Module):
     def forward(self, x):
         x = self.embedding(x)
         x = self.transformer_encoder(x)
+        x = x[:,0,:]
         x = self.mlp_head(x)
         return x
 
@@ -80,6 +81,8 @@ class Embedding(nn.Module):
         in_channels = model_cfg["in_channels"]
         hid_dim = model_cfg["hidden_dim"]
         num_patches = model_cfg["num_patches"]
+        device = torch.device('cuda' if model_cfg['device'] == 'cuda' and torch.cuda.is_available() else 'cpu')
+
 
         self.devider = Devider(model_cfg)
         self.patch_embedding = nn.Linear(
@@ -88,7 +91,7 @@ class Embedding(nn.Module):
         )
         self.cls_token = nn.Parameter(torch.randn(1, 1, hid_dim))
         self.position_embedding = self.sinusoidal_positional_embedding(
-            1 + num_patches, hid_dim
+            1 + num_patches, hid_dim, device
         )
 
     def forward(self, x):
@@ -111,13 +114,13 @@ class Embedding(nn.Module):
 class MLPHead(nn.Module):
     def __init__(self, model_cfg):
         super().__init__()
-        self.pool = nn.AdaptiveAvgPool1d(1)
+        # self.pool = nn.AdaptiveAvgPool1d(1)
         hid_dim = model_cfg["hidden_dim"]
         num_classes = model_cfg['num_classes']
         self.fc = nn.Linear(hid_dim, num_classes)
 
     def forward(self, x):
-        x = self.pool(x.permute(0, 2, 1))
+        # x = self.pool(x.permute(0, 2, 1))
         x = x.view(x.size(0), -1)
         x = self.fc(x)
         return x

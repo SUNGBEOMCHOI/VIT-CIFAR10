@@ -65,11 +65,11 @@ def train(args, cfg):
         total_loss /= len(train_loader)
         history['train'].append(total_loss)
         validation_loss = validation(model, valid_loader, criterion_list, device)
-        history['valid'].append(validation_loss)
+        history['validation'].append(validation_loss)
         print(f'------ {epoch:03d} training ------- train loss : {total_loss:.6f} -------- validation loss : {validation_loss:.6f}-------')
         if epoch % plot_epochs == 0:
             plot_progress(history, epoch, progress_path)
-            save_model(model, epoch, model_path, optimizer, lr_scheduler, history)
+            save_model(model, epoch, optimizer, lr_scheduler, history, model_path)
         lr_scheduler.step()
 
 
