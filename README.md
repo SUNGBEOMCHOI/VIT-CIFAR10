@@ -68,7 +68,7 @@ Model(
     )
   )
   (mlp_head): MLPHead(
-    (fc): Linear(in_features=128, out_features=1000, bias=True)
+    (fc): Linear(in_features=128, out_features=10, bias=True)
   )
 )
 ```
@@ -80,8 +80,8 @@ Example of configuration file for learning and evaluation
 ```
 device: cuda
 train:
-  batch_size: 512
-  train_epochs: 40
+  batch_size: 1024
+  train_epochs: 30
   loss:
     - crossentropyloss
   optim:
@@ -92,7 +92,7 @@ train:
   lr_scheduler:
     name: multisteplr
     others:
-      milestones: [20, 30]
+      milestones: [20]
       gamma: 0.1
   model_path: ./pretrained
   progress_path: ./train_progress
@@ -102,12 +102,12 @@ model:
   patch_size: 2
   in_channels: 3
   hidden_dim: 128
-  num_heads: 4
+  num_heads: 8
   feedforward_dim: 512
-  num_layers: 12
+  num_layers: 4
   dropout_rate: 0.1
   num_patches: 256
-  num_classes: 1000
+  num_classes: 10
 test:
   batch_size: 256
 ```
@@ -134,11 +134,11 @@ python test.py --config $CONFIGURATION_PATH --pretrained $PRETRAINED_PATH
 
 ## Results
 The results below are from 40 epochs of training. You can see that it is overfitting. We will analyze this result in the discussion below.
-![40epochs](https://user-images.githubusercontent.com/37692743/226308359-1045db2e-4acc-408e-98c3-5fa46dbdd641.png)
+![30epochs](https://user-images.githubusercontent.com/37692743/226512434-c37891b9-483d-4f76-882b-8e643f644c4a.png)
 
 |  Set  | Classification Accuracy |
 |:-----:|:-----------------------:|
-| Train |          95%            |
+| Train |          85%            |
 | Test  |          62%            |
 
 ## Discussion
