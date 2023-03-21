@@ -64,7 +64,7 @@ Model(
         )
         (4): Dropout(p=0.1, inplace=False)
       )
-      (1~11) Same as above (0)
+      (1~3) Same as above (0)
     )
   )
   (mlp_head): MLPHead(
