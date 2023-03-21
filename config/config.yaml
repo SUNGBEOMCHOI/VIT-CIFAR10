@@ -1,7 +1,7 @@
 device: cuda
 train:
-  batch_size: 512
-  train_epochs: 40
+  batch_size: 1024
+  train_epochs: 30
   loss:
     - crossentropyloss
   optim:
@@ -12,7 +12,7 @@ train:
   lr_scheduler:
     name: multisteplr
     others:
-      milestones: [20, 30]
+      milestones: [20]
       gamma: 0.1
   model_path: ./pretrained
   progress_path: ./train_progress
@@ -22,9 +22,9 @@ model:
   patch_size: 2
   in_channels: 3
   hidden_dim: 128
-  num_heads: 4
+  num_heads: 8
   feedforward_dim: 512
-  num_layers: 12
+  num_layers: 4
   dropout_rate: 0.1
   num_patches: 256
   num_classes: 10

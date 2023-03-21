@@ -114,14 +114,11 @@ class Embedding(nn.Module):
 class MLPHead(nn.Module):
     def __init__(self, model_cfg):
         super().__init__()
-        # self.pool = nn.AdaptiveAvgPool1d(1)
         hid_dim = model_cfg["hidden_dim"]
         num_classes = model_cfg['num_classes']
         self.fc = nn.Linear(hid_dim, num_classes)
 
     def forward(self, x):
-        # x = self.pool(x.permute(0, 2, 1))
-        x = x.view(x.size(0), -1)
         x = self.fc(x)
         return x
 
